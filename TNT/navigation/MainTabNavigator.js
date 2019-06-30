@@ -1,26 +1,28 @@
 import React from 'react';
 import { Platform } from 'react-native';
-import { createStackNavigator, createBottomTabNavigator } from 'react-navigation';
+import { createStackNavigator, createBottomTabNavigator, createSwitchNavigator } from 'react-navigation';
 
 import TabBarIcon from '../components/TabBarIcon';
 import HomeScreen from '../screens/HomeScreen';
 import LinksScreen from '../screens/LinksScreen';
 import SettingsScreen from '../screens/SettingsScreen';
+import { BoardsScreen } from '../screens/BoardsScreen';
+import { ExportScreen } from '../screens/ExportScreen';
 
 const config = Platform.select({
   web: { headerMode: 'screen' },
   default: {},
 });
 
-const HomeStack = createStackNavigator(
+const BoardsStack = createStackNavigator(
   {
-    Home: HomeScreen,
+    Boards: BoardsScreen,
   },
   config
 );
 
-HomeStack.navigationOptions = {
-  tabBarLabel: 'Home',
+BoardsStack.navigationOptions = {
+  tabBarLabel: 'Boards',
   tabBarIcon: ({ focused }) => (
     <TabBarIcon
       focused={focused}
@@ -33,44 +35,29 @@ HomeStack.navigationOptions = {
   ),
 };
 
-HomeStack.path = '';
+BoardsStack.path = '';
 
-const LinksStack = createStackNavigator(
+const ExportStack = createStackNavigator(
   {
-    Links: LinksScreen,
+    Export: ExportScreen,
   },
   config
 );
 
-LinksStack.navigationOptions = {
-  tabBarLabel: 'Links',
-  tabBarIcon: ({ focused }) => (
-    <TabBarIcon focused={focused} name={Platform.OS === 'ios' ? 'ios-link' : 'md-link'} />
-  ),
-};
-
-LinksStack.path = '';
-
-const SettingsStack = createStackNavigator(
-  {
-    Settings: SettingsScreen,
-  },
-  config
-);
-
-SettingsStack.navigationOptions = {
-  tabBarLabel: 'Settings',
+ExportStack.navigationOptions = {
+  tabBarLabel: 'Export',
   tabBarIcon: ({ focused }) => (
     <TabBarIcon focused={focused} name={Platform.OS === 'ios' ? 'ios-options' : 'md-options'} />
   ),
 };
 
-SettingsStack.path = '';
+ExportStack.path = '';
 
-const tabNavigator = createBottomTabNavigator({
-  LinksStack,
-  HomeStack,
-  SettingsStack,
+const tabNavigator = createSwitchNavigator({
+  BoardsStack,
+  ExportStack,
+}, {
+  initialRouteName: "BoardsStack"
 });
 
 tabNavigator.path = '';

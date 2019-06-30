@@ -10,49 +10,52 @@ import {
   View,
   Button
 } from 'react-native';
+import { createStackNavigator, createAppContainer } from 'react-navigation';
 
-import { MonoText } from '../components/StyledText';
+export class BoardsScreen extends React.Component {
+    render() {
+        const usersboards = [];
+        for (let i = 0; i < 11; i++) {
+            usersboards.push(
+                <View key={i.toString()} style={[styles.button, styles.board]}>
+                    <Text style={styles.boardHeader}>
+                        Board #{i}
+                    </Text>
+                </View>
+            );
+        }
 
-export default function BoardsScreen() {
-    let usersboards = [];
-    for (let i = 0; i < 11; i++) {
-        usersboards.push(
-            <View key={i.toString()} style={[styles.button, styles.board]}>
-                <Text style={styles.boardHeader}>
-                    Board #{i}
-                </Text>
-            </View>
+        // const {navigate} = this.props.navigation;
+
+        return (
+          <View style={styles.container}>
+              <View style={styles.headerContainer}>
+                  <Text style={styles.headerText}>
+                      Select A Board
+                  </Text>
+              </View>
+      
+              <ScrollView style={styles.boardContainer}
+                  contentContainerStyle={styles.boardContainerContent}>
+                  { usersboards }
+              </ScrollView>
+      
+              <View style={styles.footer}>
+                  <TouchableOpacity onPress={() => this.props.navigation.navigate('Export')}>
+                      <Text style={[styles.button, styles.primaryBtn]}>
+                          Export
+                      </Text>
+                  </TouchableOpacity>
+      
+                  <TouchableOpacity>
+                      <Text style={[styles.button, styles.defaultBtn]}>
+                          Settings
+                      </Text>
+                  </TouchableOpacity>
+              </View>
+          </View>
         );
     }
-
-  return (
-    <View style={styles.container}>
-        <View style={styles.headerContainer}>
-            <Text style={styles.headerText}>
-                Select A Board
-            </Text>
-        </View>
-
-        <ScrollView style={styles.boardContainer}
-            contentContainerStyle={styles.boardContainerContent}>
-            { usersboards }
-        </ScrollView>
-
-        <View style={styles.footer}>
-            <TouchableOpacity>
-                <Text style={[styles.button, styles.primaryBtn]}>
-                    Export
-                </Text>
-            </TouchableOpacity>
-
-            <TouchableOpacity>
-                <Text style={[styles.button, styles.defaultBtn]}>
-                    Settings
-                </Text>
-            </TouchableOpacity>
-        </View>
-    </View>
-  );
 }
 
 const styles = StyleSheet.create({

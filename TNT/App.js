@@ -6,7 +6,26 @@ import { Platform, StatusBar, StyleSheet, View } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 
 import AppNavigator from './navigation/AppNavigator';
-import BoardsScreen from './screens/BoardsScreen';
+import {BoardsScreen} from './screens/BoardsScreen';
+import {ExportScreen} from './screens/ExportScreen';
+import HomeScreen from './screens/HomeScreen';
+import { createBottomTabNavigator } from 'react-navigation';
+
+// import {
+//   createStackNavigator,
+//   createAppContainer
+// } from 'react-navigation';
+
+// const MainNavigator = createStackNavigator({
+//   Home: {screen: BoardsScreen},
+//   Export: {screen: ExportScreen}
+// }, {
+//   initialRouteName:'Home',
+// });
+
+// const App = createAppContainer(MainNavigator);
+
+// export default App;
 
 export default function App(props) {
   const [isLoadingComplete, setLoadingComplete] = useState(false);
@@ -23,7 +42,7 @@ export default function App(props) {
     return (
       <View style={styles.container}>
         {Platform.OS === 'ios' && <StatusBar barStyle="default" />}
-        <BoardsScreen />
+        <AppNavigator />
       </View>
     );
   }
